@@ -87,6 +87,23 @@ async function checkEmailExists(email) {
   return userExists;
 }
 
+/**
+ * Change user password
+ * @param {string} id - User ID
+ * @param {string} oldPassword - Old password
+ * @param {string} newPassword - New password
+ * @returns {boolean} - Returns true if password changed successfully, false otherwise
+ */
+async function changePassword(id, oldPassword, newPassword) {
+  // Change the password in the repository
+  const success = await usersRepository.changePassword(
+    id,
+    oldPassword,
+    newPassword
+  );
+  return success;
+}
+
 module.exports = {
   getUsers,
   getUser,
@@ -94,4 +111,5 @@ module.exports = {
   updateUser,
   deleteUser,
   checkEmailExists,
+  changePassword,
 };

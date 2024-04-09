@@ -45,6 +45,37 @@ async function checkUserByEmail(email) {
   return !!user;
 }
 
+async function changePassword(id, oldPassword, newPassword) {
+  return User.updateOne(
+    {
+      _id: id,
+    },
+    {
+      $set: {
+        newPassword,
+      },
+    }
+  );
+  // // Get the user from the database
+  // const user = await User.findById(id);
+
+  // // Check if user exists
+  // if (!user) {
+  //   return false; // User not found
+  // }
+
+  // // Verify old password
+  // if (hashPassword(oldPassword) !== user.password) {
+  //   return false; // Old password does not match
+  // }
+
+  // // Update password in the database
+  // user.password = hashPassword(newPassword);
+  // await user.save();
+
+  // return true; // Password changed successfully
+}
+
 module.exports = {
   getUsers,
   getUser,
@@ -52,4 +83,5 @@ module.exports = {
   updateUser,
   deleteUser,
   checkUserByEmail,
+  changePassword,
 };
