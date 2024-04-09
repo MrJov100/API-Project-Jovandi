@@ -50,6 +50,15 @@ async function createUser(request, response, next) {
     const name = request.body.name;
     const email = request.body.email;
     const password = request.body.password;
+    const password_confirm = request.body.password_confirm;
+
+    // Check if passwords match
+    if (password !== password_confirm) {
+      throw errorResponder(
+        errorTypes.INVALID_PASSWORD,
+        'Passwords do not match'
+      );
+    }
 
     // Check if email already exists
     const emailExists = await usersService.checkEmailExists(email);
