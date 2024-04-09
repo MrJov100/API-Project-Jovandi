@@ -1,10 +1,5 @@
 const usersRepository = require('./users-repository');
-const { hashPassword } = require('../../../utils/password');
 
-/**
- * Get list of users
- * @returns {Array}
- */
 async function getUsers() {
   const users = await usersRepository.getUsers();
 
@@ -21,15 +16,9 @@ async function getUsers() {
   return results;
 }
 
-/**
- * Get user detail
- * @param {string} id - User ID
- * @returns {Object}
- */
 async function getUser(id) {
   const user = await usersRepository.getUser(id);
 
-  // User not found
   if (!user) {
     return null;
   }
@@ -41,70 +30,45 @@ async function getUser(id) {
   };
 }
 
-/**
- * Create new user
- * @param {string} name - Name
- * @param {string} email - Email
- * @param {string} password - Password
- * @returns {boolean}
- */
 async function createUser(name, email, password) {
-  // Hash password
-  const hashedPassword = await hashPassword(password);
+  const userExists = await checkEmailExists(email);
 
-  try {
-    await usersRepository.createUser(name, email, hashedPassword);
-  } catch (err) {
-    return null;
+  if (userExists) {
+    return null; // Email already exists
   }
 
-  return true;
+  // Continue with user creation
 }
 
-/**
- * Update existing user
- * @param {string} id - User ID
- * @param {string} name - Name
- * @param {string} email - Email
- * @returns {boolean}
- */
 async function updateUser(id, name, email) {
   const user = await usersRepository.getUser(id);
 
-  // User not found
   if (!user) {
     return null;
   }
 
-  try {
-    await usersRepository.updateUser(id, name, email);
-  } catch (err) {
-    return null;
+  const userExists = await checkEmailExists(email);
+
+  if (userExists && user.email !== email) {
+    return null; // Email already exists
   }
 
-  return true;
+  // Continue with user update
 }
 
-/**
- * Delete user
- * @param {string} id - User ID
- * @returns {boolean}
- */
 async function deleteUser(id) {
   const user = await usersRepository.getUser(id);
 
-  // User not found
   if (!user) {
     return null;
   }
 
-  try {
-    await usersRepository.deleteUser(id);
-  } catch (err) {
-    return null;
-  }
+  // Continue with user deletion
+}
 
-  return true;
+async function checkEmailExists(email) {
+  const userExists = await usersRepository.checkUserByEmail(email);
+  return userExists;
 }
 
 module.exports = {

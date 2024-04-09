@@ -122,7 +122,7 @@ const errorTypes = {
   EMAIL_ALREADY_TAKEN: {
     description: 'This email already taken, try use another',
     status: 409,
-    code: 'EMAIL_ALREADY_TAKEN_ERROR',
+    code: 'EMAIL_ALREADY_TAKEN',
   },
   SEND_EMAIL: {
     description: 'Send email error',
