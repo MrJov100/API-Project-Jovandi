@@ -1,5 +1,9 @@
 const usersRepository = require('./users-repository');
 
+/**
+ * Get list of users
+ * @returns {Array}
+ */
 async function getUsers() {
   const users = await usersRepository.getUsers();
 
@@ -16,6 +20,11 @@ async function getUsers() {
   return results;
 }
 
+/**
+ * Get user detail
+ * @param {string} id - User ID
+ * @returns {Object}
+ */
 async function getUser(id) {
   const user = await usersRepository.getUser(id);
 
@@ -30,32 +39,36 @@ async function getUser(id) {
   };
 }
 
-async function createUser(name, email, password, password_confirm) {
+/**
+ * Create new user
+ * @param {string} name - Name
+ * @param {string} email - Email
+ * @param {string} password - Password
+ * @returns {boolean}
+ */
+async function createUser(name, email, password) {
   const userExists = await checkEmailExists(email);
 
   if (userExists) {
     return null; // Email already exists
   }
 
-  // Check if passwords match
-  if (password !== password_confirm) {
-    throw new Error('Passwords do not match');
-  }
-
   try {
     // Continue with user creation
-    const newUser = await usersRepository.createUser(
-      name,
-      email,
-      password,
-      password_confirm
-    );
+    const newUser = await usersRepository.createUser(name, email, password);
     return newUser; // Return the newly created user object
   } catch (error) {
     throw new Error('Failed to create user: ' + error.message);
   }
 }
 
+/**
+ * Update existing user
+ * @param {string} id - User ID
+ * @param {string} name - Name
+ * @param {string} email - Email
+ * @returns {boolean}
+ */
 async function updateUser(id, name, email) {
   const user = await usersRepository.getUser(id);
 

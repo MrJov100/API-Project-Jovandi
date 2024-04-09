@@ -1,4 +1,5 @@
 const { errorResponder, errorTypes } = require('../../../core/errors');
+const { password_confirm } = require('../../../models/users-schema');
 const authenticationServices = require('./authentication-service');
 
 /**

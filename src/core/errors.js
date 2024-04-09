@@ -70,7 +70,7 @@ const errorTypes = {
   INVALID_PASSWORD: {
     description: 'Invalid password',
     status: 403,
-    code: 'INVALID_PASSWORD',
+    code: 'INVALID_PASSWORD_ERROR',
   },
   TOKEN_EXPIRED: {
     description: 'Token expired',
