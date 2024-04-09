@@ -39,8 +39,8 @@ const errorTypes = {
   },
   VALIDATION: {
     description: 'Invalid request',
-    status: 400,
-    code: 'VALIDATION_ERROR',
+    status: 403,
+    code: 'INVALID_PASSWORD',
   },
   ALERT: {
     message: 'Operation forbidden by security policy',

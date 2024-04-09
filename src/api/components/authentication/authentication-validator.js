@@ -8,8 +8,8 @@ module.exports = {
       password_confirm: joi
         .string()
         .required()
-        .valid(joi.ref('Password'))
-        .messages({ 'any.only': 'Passwords do not match' })
+        .valid(joi.ref('password'))
+        .messages({ 'any.only': 'Password confirm do not match with' })
         .label('Password Confirmation'),
     },
   },

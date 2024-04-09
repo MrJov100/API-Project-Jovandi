@@ -1,4 +1,5 @@
 const { User } = require('../../../models');
+const { password_confirm } = require('../../../models/users-schema');
 
 /**
  * Get a list of users
