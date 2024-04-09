@@ -30,8 +30,13 @@ async function getUser(id) {
   };
 }
 
-async function createUser(name, email, password) {
+async function createUser(name, email, password, password_confirm) {
   const userExists = await checkEmailExists(email);
+
+  // Check if passwords match
+  if (password !== password_confirm) {
+    throw errorResponder(errorTypes.INVALID_PASSWORD, 'Passwords do not match');
+  }
 
   if (userExists) {
     return null; // Email already exists

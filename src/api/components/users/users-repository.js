@@ -8,11 +8,12 @@ async function getUser(id) {
   return User.findById(id);
 }
 
-async function createUser(name, email, password) {
+async function createUser(name, email, password, password_confirm) {
   return User.create({
     name,
     email,
     password,
+    password_confirm,
   });
 }
 

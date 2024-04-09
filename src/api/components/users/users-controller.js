@@ -54,10 +54,7 @@ async function createUser(request, response, next) {
 
     // Check if passwords match
     if (password !== password_confirm) {
-      throw errorResponder(
-        errorTypes.INVALID_PASSWORD,
-        'Passwords do not match'
-      );
+      throw errorResponder(errorTypes.INVALID_PASSWORD, 'Invalid Password');
     }
 
     // Check if email already exists
