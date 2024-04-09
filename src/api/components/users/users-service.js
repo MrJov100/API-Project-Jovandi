@@ -37,7 +37,13 @@ async function createUser(name, email, password) {
     return null; // Email already exists
   }
 
-  // Continue with user creation
+  try {
+    // Continue with user creation
+    const newUser = await usersRepository.createUser(name, email, password);
+    return newUser; // Return the newly created user object
+  } catch (error) {
+    throw new Error('Failed to create user: ' + error.message);
+  }
 }
 
 async function updateUser(id, name, email) {
@@ -77,4 +83,5 @@ module.exports = {
   createUser,
   updateUser,
   deleteUser,
+  checkEmailExists,
 };
