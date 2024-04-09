@@ -11,6 +11,8 @@ module.exports = {
         .min(6)
         .max(32)
         .required()
+        .valid(joi.ref('Password Confirm'))
+        .messages({ 'any.only': 'Passwords do not match' })
         .label('Password Confirm'),
     },
   },

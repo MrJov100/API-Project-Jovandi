@@ -51,5 +51,5 @@ module.exports = {
   createUser,
   updateUser,
   deleteUser,
-  checkUserByEmail, // Add the new function to exports
+  checkUserByEmail,
 };

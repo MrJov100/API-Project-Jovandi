@@ -33,18 +33,23 @@ async function getUser(id) {
 async function createUser(name, email, password, password_confirm) {
   const userExists = await checkEmailExists(email);
 
-  // Check if passwords match
-  if (password !== password_confirm) {
-    throw errorResponder(errorTypes.INVALID_PASSWORD, 'Passwords do not match');
-  }
-
   if (userExists) {
     return null; // Email already exists
   }
 
+  // Check if passwords match
+  if (password !== password_confirm) {
+    throw new Error('Passwords do not match');
+  }
+
   try {
     // Continue with user creation
-    const newUser = await usersRepository.createUser(name, email, password);
+    const newUser = await usersRepository.createUser(
+      name,
+      email,
+      password,
+      password_confirm
+    );
     return newUser; // Return the newly created user object
   } catch (error) {
     throw new Error('Failed to create user: ' + error.message);

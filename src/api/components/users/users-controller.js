@@ -28,6 +28,11 @@ async function getUser(request, response, next) {
   try {
     const user = await usersService.getUser(request.params.id);
 
+    // Check if passwords match
+    if (password !== password_confirm) {
+      throw errorResponder(errorTypes.INVALID_PASSWORD, 'Invalid Password');
+    }
+
     if (!user) {
       throw errorResponder(errorTypes.UNPROCESSABLE_ENTITY, 'Unknown user');
     }

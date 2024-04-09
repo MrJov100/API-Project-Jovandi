@@ -7,8 +7,10 @@ module.exports = {
       password: joi.string().required().label('Password'),
       password_confirm: joi
         .string()
-        .valid(joi.ref('Password Confirm'))
-        .required(), // Ensure password_confirm matches password
+        .required()
+        .valid(joi.ref('password'))
+        .messages({ 'any.only': 'Passwords do not match' })
+        .label('Password Confirmation'),
     },
   },
 };
